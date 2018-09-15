@@ -4,12 +4,22 @@ namespace MyParser
 {
     public class TokenExtractor
     {
-        public TokenExtractor(string code)
+        private TokenExtractor(string code)
         {
             if (code == null)
             {
                 throw new ArgumentNullException(nameof(code));
             }
+        }
+
+        public static TokenExtractor FromString(string code)
+        {
+            return new TokenExtractor(code);
+        }
+
+        public bool Ended()
+        {
+            return true;
         }
     }
 }

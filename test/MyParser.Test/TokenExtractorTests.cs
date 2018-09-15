@@ -9,7 +9,7 @@ namespace MyParser.Test
         public void Requer_String_AoInstanciar()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new TokenExtractor(null)
+                () => TokenExtractor.FromString(null)
             );
 
             Assert.Equal("code", ex.ParamName);

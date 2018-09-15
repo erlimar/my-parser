@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using Moq;
 
 namespace MyParser.Test
 {
@@ -18,8 +19,8 @@ namespace MyParser.Test
         [Fact]
         public void ParseRequer_SymbolExtractor()
         {
-            var rootElement = new GrammarElementFake();
-            var grammar = new Grammar(rootElement);
+            var grammarElement = new Mock<GrammarElement>().Object;
+            var grammar = new Grammar(grammarElement);
             var parser = new Parser(grammar);
 
             var ex = Assert.Throws<ArgumentNullException>(
@@ -30,12 +31,13 @@ namespace MyParser.Test
         }
 
         [Fact]
-        public void Parse_Retorna_ArvoreSintaticaInvalida_ParaVazio()
+        public void Parse_Retorna_ArvoreSintaticaInvalida_ParaCodigoVazio()
         {
-            var rootElement = new GrammarElementFake();
-            var grammar = new Grammar(rootElement);
+            var grammarElement = new Mock<GrammarElement>().Object;
+            var grammar = new Grammar(grammarElement);
+            var extractor = TokenExtractor.FromString("");
             var parser = new Parser(grammar);
-            var extractor = new TokenExtractor(string.Empty);
+
             var tree = parser.Parse(extractor);
 
             Assert.NotNull(tree);
@@ -45,10 +47,11 @@ namespace MyParser.Test
         [Fact]
         public void Parse_Retorna_ArvoreSintaticaInvalidaSemTokenRoot_ParaVazio()
         {
-            var rootElement = new GrammarElementFake();
-            var grammar = new Grammar(rootElement);
+            var grammarElement = new Mock<GrammarElement>().Object;
+            var grammar = new Grammar(grammarElement);
+            var extractor = TokenExtractor.FromString("");
             var parser = new Parser(grammar);
-            var extractor = new TokenExtractor(string.Empty);
+
             var tree = parser.Parse(extractor);
 
             Assert.NotNull(tree);
@@ -56,8 +59,4 @@ namespace MyParser.Test
             Assert.Null(tree.TokenRoot);
         }
     }
-
-    internal class GrammarElementFake
-        : GrammarElement
-    { }
 }
