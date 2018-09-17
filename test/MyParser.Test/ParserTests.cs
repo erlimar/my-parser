@@ -85,7 +85,7 @@ namespace MyParser.Test
             // Uma gramática é válida se retornar um [Token] não nulo
             grammarElementMock
                 .Setup(el => el.Eval(It.IsAny<TokenExtractor>()))
-                .Returns(new Token());
+                .Returns(new Token(null));
 
             var tree = parser.Parse(extractor);
 
@@ -104,7 +104,7 @@ namespace MyParser.Test
             // Uma gramática é válida se retornar um [Token] não nulo
             grammarElementMock
                 .Setup(el => el.Eval(It.IsAny<TokenExtractor>()))
-                .Returns(new Token())
+                .Returns(new Token(null))
                 .Callback<TokenExtractor>((tk) =>
                 {
                     // Consumindo o código

@@ -9,7 +9,7 @@ namespace MyParser.Test
         [Fact(DisplayName = "Token é obrigatório")]
         public void Token_EhObrigatorio()
         {
-            var token = new Token();
+            var token = new Token(null);
             var node = new TokenTreeNode(token);
             var ex = Assert.Throws<ArgumentNullException>(
                 () => new TokenTreeNode(null)
@@ -22,7 +22,7 @@ namespace MyParser.Test
         [Fact(DisplayName = "Childs inicia como uma lista vazia")]
         public void Childs_IniciaComo_ListaVazia()
         {
-            var node = new TokenTreeNode(new Token());
+            var node = new TokenTreeNode(new Token(null));
 
             Assert.NotNull(node.Childs);
             Assert.Equal(0, node.Childs.Count);
@@ -31,7 +31,7 @@ namespace MyParser.Test
         [Fact(DisplayName = "Parent inicia como nulo")]
         public void Parent_IniciaComo_Nulo()
         {
-            var node = new TokenTreeNode(new Token());
+            var node = new TokenTreeNode(new Token(null));
 
             Assert.Null(node.Parent);
         }
