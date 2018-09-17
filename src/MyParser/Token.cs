@@ -1,4 +1,4 @@
-﻿namespace MyParser.Test
+﻿namespace MyParser
 {
     public class Token
     {

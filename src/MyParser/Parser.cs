@@ -1,5 +1,4 @@
 ﻿using System;
-using MyParser.Test;
 
 namespace MyParser
 {
@@ -12,6 +11,9 @@ namespace MyParser
             _grammar = grammar ?? throw new ArgumentNullException(nameof(grammar));
         }
 
+        // TODO: Implementar log e OnError callback
+        private void LogException(Exception ex) { }
+
         public SyntaxTree Parse(TokenExtractor extractor)
         {
             if (extractor == null)
@@ -19,7 +21,43 @@ namespace MyParser
                 throw new ArgumentNullException(nameof(extractor));
             }
 
-            return new SyntaxTree();
+            TokenExtractorCursor cursor = TokenExtractorCursor.Invalid;
+            SyntaxTree tree = new SyntaxTree();
+            Token token = null;
+
+            try
+            {
+                cursor = extractor.SaveCursor();
+                token = _grammar.RootElement.Eval(extractor);
+
+                if (token != null && extractor.EndOfCode)
+                {
+                    var node = new TokenTreeNode(token);
+
+                    tree.Validate(node);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!TokenExtractorCursor.Invalid.Equals(cursor))
+                {
+                    try { extractor.RollbackCursor(cursor); }
+                    catch (Exception) {/* QUIET */}
+                }
+
+                LogException(ex);
+            }
+
+            if (token == null || !tree.IsValid)
+            {
+                if (!TokenExtractorCursor.Invalid.Equals(cursor))
+                {
+                    try { extractor.RollbackCursor(cursor); }
+                    catch (Exception) {/* QUIET */}
+                }
+            }
+
+            return tree;
         }
     }
 }
