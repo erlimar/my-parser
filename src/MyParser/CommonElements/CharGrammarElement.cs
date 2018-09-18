@@ -16,23 +16,24 @@ namespace MyParser.CommonElements
 
         public override Token Eval(TokenExtractor extractor)
         {
-            if (extractor == null)
-            {
-                throw new ArgumentNullException(nameof(extractor));
-            }
+            EnsureExtractor(extractor, nameof(extractor));
 
+            // TODO: Remover tratamento de cursor do extrator
+            //       Isso será garantido pelo anterior?
             var cursor = extractor.SaveCursor();
 
             try
             {
                 var c = extractor.NextChar();
 
-                if (c != _char)
+                if (c == _char)
                 {
-                    return null;
+                    return new Token(c)
+                    {
+                        ContentPosBegin = cursor.Position,
+                        ContentLength = extractor.SaveCursor().Position - cursor.Position
+                    };
                 }
-
-                return new Token(c);
             }
             catch (Exception)
             {
@@ -40,6 +41,7 @@ namespace MyParser.CommonElements
                 throw;
             }
 
+            extractor.RollbackCursor(cursor);
             return null;
         }
     }
