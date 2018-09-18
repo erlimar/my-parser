@@ -18,7 +18,7 @@ namespace MyParser.Test
         }
 
         [Fact(DisplayName = "CharGrammarElement[] Não pode ser vazio")]
-        public void ListaChar_NaoPodeSerVaziar()
+        public void ListaChar_NaoPodeSerVazia()
         {
             var charList = new CharGrammarElement[] { };
 
@@ -49,7 +49,7 @@ namespace MyParser.Test
         }
 
         [Fact(DisplayName = "Reconhece uma lista válida ao avaliar")]
-        public void Reconhece_ListaValida_AoAvalidar()
+        public void Reconhece_ListaValida_AoAvaliar()
         {
             var charList = new[]
             {
