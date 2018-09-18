@@ -69,5 +69,25 @@ namespace MyParser.Test
             Assert.IsType<char>(token.Content);
             Assert.Contains((char)token.Content, new char[] { 'a', 'b', 'c' });
         }
+
+        [Theory(DisplayName = "Reconhece uma lista inválida ao avaliar")]
+        [InlineData("abc")]
+        [InlineData("bc1")]
+        [InlineData("c01")]
+        public void Reconhece_ListaInvalida_AoAvaliar(string text)
+        {
+            var list = new[]
+            {
+                new CharGrammarElement('1'),
+                new CharGrammarElement('2'),
+                new CharGrammarElement('3')
+            };
+
+            var grammar = new OrListGrammarElement(list);
+            var extractor = TokenExtractor.FromString(text);
+            var token = grammar.Eval(extractor);
+
+            Assert.Null(token);
+        }
     }
 }
