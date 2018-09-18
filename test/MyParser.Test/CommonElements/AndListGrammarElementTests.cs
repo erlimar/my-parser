@@ -17,7 +17,7 @@ namespace MyParser.Test
             Assert.Equal("list", ex.ParamName);
         }
 
-        [Fact(DisplayName = "GrammarElement[] Não pode ser vazio")]
+        [Fact(DisplayName = "GrammarElement[] não pode ser vazio")]
         public void Lista_NaoPodeSerVazia()
         {
             var list = new GrammarElement[] { };
