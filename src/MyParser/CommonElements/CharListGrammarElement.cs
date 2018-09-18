@@ -5,19 +5,11 @@ using System.Text;
 namespace MyParser.CommonElements
 {
     public class CharListGrammarElement
-        : GrammarElement
+        : AndListGrammarElement
     {
-        private readonly CharGrammarElement[] _list;
-
-        public CharListGrammarElement(CharGrammarElement[] charList)
-        {
-            _list = charList ?? throw new ArgumentNullException(nameof(charList));
-
-            if (_list.Length < 1)
-            {
-                throw new ArgumentException($"Argument {nameof(charList)} can not be empty", nameof(charList));
-            }
-        }
+        public CharListGrammarElement(CharGrammarElement[] list)
+            : base(list ?? throw new ArgumentNullException(nameof(list)))
+        { }
 
         public override Token Eval(TokenExtractor extractor)
         {
@@ -28,17 +20,17 @@ namespace MyParser.CommonElements
 
             try
             {
-                foreach (var charGrammarElement in _list)
+                var token = base.Eval(extractor);
+
+                if (token == null)
                 {
-                    var charToken = charGrammarElement.Eval(extractor);
+                    extractor.RollbackCursor(cursor);
+                    return null;
+                }
 
-                    if (charToken == null)
-                    {
-                        extractor.RollbackCursor(cursor);
-                        return null;
-                    }
-
-                    content.Append((char)charToken.Content);
+                foreach (var childToken in (token.Content as Token[]))
+                {
+                    content.Append((char)childToken.Content);
                 }
             }
             catch (Exception)

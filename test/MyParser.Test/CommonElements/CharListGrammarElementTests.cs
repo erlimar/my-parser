@@ -14,7 +14,7 @@ namespace MyParser.Test
                 () => new CharListGrammarElement(null)
             );
 
-            Assert.Equal("charList", ex.ParamName);
+            Assert.Equal("list", ex.ParamName);
         }
 
         [Fact(DisplayName = "CharGrammarElement[] Não pode ser vazio")]
@@ -26,9 +26,9 @@ namespace MyParser.Test
                 () => new CharListGrammarElement(charList)
             );
 
-            Assert.Equal("charList", ex.ParamName);
+            Assert.Equal("list", ex.ParamName);
             Assert.Equal(
-                "Argument charList can not be empty",
+                "Argument list can not be empty",
                 ex.Message.Split(new char[] { '\r', '\n' })[0]
             );
         }
