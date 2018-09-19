@@ -1,3 +1,4 @@
+using Moq;
 using System;
 using Xunit;
 
@@ -14,6 +15,18 @@ namespace MyParser.Test
             );
 
             Assert.Equal("rootElement", ex.ParamName);
+        }
+
+        [Fact(DisplayName = "Requer [GrammarIgnoreDelegate] ao instanciar com construtor 2")]
+        public void Requer_GrammarIgnoreDelegate_AoInstanciar()
+        {
+            var element = new Mock<GrammarElement>().Object;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => new Grammar(element, null)
+            );
+
+            Assert.Equal("ignoreDelegate", ex.ParamName);
         }
     }
 }

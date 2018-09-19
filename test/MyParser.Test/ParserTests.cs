@@ -1,6 +1,9 @@
 using System;
+using System.Linq;
 using Xunit;
 using Moq;
+using MyParser.Test.Utils;
+using MyParser.CommonElements;
 
 namespace MyParser.Test
 {
@@ -115,6 +118,73 @@ namespace MyParser.Test
 
             Assert.True(tree.IsValid);
             Assert.True(extractor.EndOfCode);
+        }
+
+        [Fact(DisplayName = "Desconsidera caracteres conforme IgnoreDelegate")]
+        public void DesconsideraCaracteres_Conforme_IgnoreDelegate()
+        {
+            bool ignore(char c) => new[] { ' ', '*', '-' }.Contains(c);
+
+            var ABRoot = new AndListGrammarElement(new[] {
+                new CharGrammarElement('A'),
+                new CharGrammarElement('B')
+            });
+
+            /*
+             * A IDEIA BASICA SOBRE IGNORAR:
+             * -----------------------------
+             * > O token é que determina se vai ou não ignorar
+             *   algo antes iniciar o consumo de seus caracteres.
+             * 
+             * > Pra isso, além de receber o TokenExtractor, ele
+             *   precisa receber o [ignorer]
+             *   
+             * > Normalmente o ignorar é feito no início do processo,
+             *   logo antes de consumir o primeiro [char]
+             *   
+             *   # Imagine um "ignorar espaços vazios [espaço, tab, nova linha, etc],
+             *   # Agora imagine os tokens de:
+             *      - Comentário de única linha -> // comentário aqui
+             *      - Comentário de várias linhas -> (* várias linhas *)
+             *      - Strings -> "uma   string   qualquer"
+             *   # Esses devem ignorar os caracteres iniciais, mas uma vez
+             *     que estão dentro de seu escopo, devem considerar os "espaços vazios"
+             *     
+             * > Imaginamos que o elemento [CharGrammarElement] não faz mais
+             *   sentido aqui. Talvez um [WordGrammarElement] faça mais sentido.
+             *   Se será uma palavra de um único caractere ele é que determina
+             */
+
+            var grammar = new Grammar(ABRoot, ignore);
+            var parser = new Parser(grammar);
+
+            var code = TokenExtractor.FromString(
+                "- - * A - - --- ******  B **    -----"
+            );
+
+            var tree = parser.Parse(code);
+
+            Assert.NotNull(tree);
+            Assert.NotNull(tree.RootNode);
+            Assert.NotNull(tree.RootNode.Token);
+            Assert.NotNull(tree.RootNode.Token.Content);
+            Assert.True(tree.IsValid);
+            Assert.IsType<Token[]>(tree.RootNode.Token.Content);
+            Assert.Equal(2, (tree.RootNode.Token.Content as Token[]).Length);
+            Assert.Equal("A", ((tree.RootNode.Token.Content as Token[])[0] as Token).Content.ToString());
+            Assert.Equal("B", ((tree.RootNode.Token.Content as Token[])[1] as Token).Content.ToString());
+        }
+
+        [Fact(DisplayName = "Avalia corretamente uma gramática simples")]
+        public void AvaliaCorretamente_UmaGramaticaSimples()
+        {
+            var grammar = new SampleGrammar1();
+            var parser = new Parser(grammar);
+
+            var extractor1 = TokenExtractor.FromString(SampleGrammar1.SampleCode1);
+            var tree1 = parser.Parse(extractor1);
+
+            SampleGrammar1.AssertSampleCode1(tree1);
         }
     }
 }
