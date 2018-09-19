@@ -89,5 +89,43 @@ namespace MyParser.Test
 
             Assert.Null(token);
         }
+
+        [Fact(DisplayName = "Reconhece qualquer um dos tokens da lista")]
+        public void Reconhece_QualquerDosTokensNaLista()
+        {
+            var list = new[]
+            {
+                new CharGrammarElement('a'),
+                new CharGrammarElement('b'),
+                new CharGrammarElement('c')
+            };
+
+            var grammar = new OrListGrammarElement(list);
+
+            var extractorOk = TokenExtractor.FromString("cba");
+            var tk1Ok = grammar.Eval(extractorOk);
+            var tk2Ok = grammar.Eval(extractorOk);
+            var tk3Ok = grammar.Eval(extractorOk);
+
+            var extractorErr = TokenExtractor.FromString("acx");
+            var tk1Err = grammar.Eval(extractorErr);
+            var tk2Err = grammar.Eval(extractorErr);
+            var tk3Err = grammar.Eval(extractorErr);
+
+            // Ok
+            Assert.NotNull(tk1Ok);
+            Assert.NotNull(tk2Ok);
+            Assert.NotNull(tk3Ok);
+            Assert.Equal('c', (char)tk1Ok.Content);
+            Assert.Equal('b', (char)tk2Ok.Content);
+            Assert.Equal('a', (char)tk3Ok.Content);
+
+            // Erro
+            Assert.NotNull(tk1Err);
+            Assert.NotNull(tk2Err);
+            Assert.Null(tk3Err);
+            Assert.Equal('a', (char)tk1Err.Content);
+            Assert.Equal('c', (char)tk2Err.Content);
+        }
     }
 }
