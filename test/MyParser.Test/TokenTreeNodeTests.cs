@@ -3,14 +3,14 @@ using Xunit;
 
 namespace MyParser.Test
 {
-    [Trait("Target", nameof(TokenTreeNode))]
+    [Trait("Target", nameof(SyntaxTreeNode))]
     public class TokenTreeNodeTests
     {
         [Fact(DisplayName = "Token é obrigatório")]
         public void Token_EhObrigatorio()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new TokenTreeNode(null)
+                () => new SyntaxTreeNode(null)
             );
 
             Assert.Equal("token", ex.ParamName);
@@ -20,7 +20,7 @@ namespace MyParser.Test
         public void Propriedade_Token_EhUm_Wrapper()
         {
             var token = new Token(null);
-            var node = new TokenTreeNode(token);
+            var node = new SyntaxTreeNode(token);
 
             Assert.Equal(token, node.Token);
         }
@@ -28,7 +28,7 @@ namespace MyParser.Test
         [Fact(DisplayName = "Childs inicia como uma lista vazia")]
         public void Childs_IniciaComo_ListaVazia()
         {
-            var node = new TokenTreeNode(new Token(null));
+            var node = new SyntaxTreeNode(new Token(null));
 
             Assert.NotNull(node.Childs);
             Assert.Equal(0, node.Childs.Count);
@@ -37,7 +37,7 @@ namespace MyParser.Test
         [Fact(DisplayName = "Parent inicia como nulo")]
         public void Parent_IniciaComo_Nulo()
         {
-            var node = new TokenTreeNode(new Token(null));
+            var node = new SyntaxTreeNode(new Token(null));
 
             Assert.Null(node.Parent);
         }

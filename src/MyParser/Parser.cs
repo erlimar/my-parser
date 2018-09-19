@@ -32,7 +32,7 @@ namespace MyParser
 
                 if (token != null && extractor.EndOfCode)
                 {
-                    var node = new TokenTreeNode(token);
+                    var node = new SyntaxTreeNode(token);
 
                     tree.Validate(node);
                 }
