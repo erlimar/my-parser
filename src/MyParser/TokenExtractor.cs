@@ -55,6 +55,11 @@ namespace MyParser
             _reader.Position = cursor.Position;
         }
 
+        public char NextChar()
+        {
+            return (char)_reader.ReadByte();
+        }
+
         #region IDisposable Support
         private bool _disposedValue = false;
 
@@ -71,11 +76,6 @@ namespace MyParser
                 _reader = null;
                 _disposedValue = true;
             }
-        }
-
-        public char NextChar()
-        {
-            return (char)_reader.ReadByte();
         }
 
         public void Dispose() => Dispose(true);

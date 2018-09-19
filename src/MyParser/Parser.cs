@@ -23,11 +23,15 @@ namespace MyParser
 
             TokenExtractorCursor cursor = TokenExtractorCursor.Invalid;
             SyntaxTree tree = new SyntaxTree();
+
+            // TODO: Mudar para [SyntaxTreeNode]
             Token token = null;
 
             try
             {
                 cursor = extractor.SaveCursor();
+
+                // TODO: Deve retornar [SyntaxTreeNode]
                 token = _grammar.RootElement.Eval(extractor);
 
                 if (token != null && extractor.EndOfCode)
