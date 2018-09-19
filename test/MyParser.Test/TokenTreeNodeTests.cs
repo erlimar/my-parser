@@ -9,14 +9,20 @@ namespace MyParser.Test
         [Fact(DisplayName = "Token é obrigatório")]
         public void Token_EhObrigatorio()
         {
-            var token = new Token(null);
-            var node = new TokenTreeNode(token);
             var ex = Assert.Throws<ArgumentNullException>(
                 () => new TokenTreeNode(null)
             );
 
-            Assert.Equal(token, node.Token);
             Assert.Equal("token", ex.ParamName);
+        }
+
+        [Fact(DisplayName = "A propriedade Token é exatamente o token passado no construtor")]
+        public void Propriedade_Token_EhUm_Wrapper()
+        {
+            var token = new Token(null);
+            var node = new TokenTreeNode(token);
+
+            Assert.Equal(token, node.Token);
         }
 
         [Fact(DisplayName = "Childs inicia como uma lista vazia")]
