@@ -22,23 +22,28 @@ namespace MyParser.CommonElements
 
             try
             {
-                Token token = null;
-
-                do
+                while (true)
                 {
-                    token = _element.Eval(extractor);
+                    var token = _element.Eval(extractor);
 
-                    if (token != null)
+                    if (token == null)
                     {
-                        content.Add(token);
+                        break;
                     }
+
+                    content.Add(token);
                 }
-                while (token != null);
             }
             catch (Exception)
             {
                 extractor.RollbackCursor(cursor);
                 throw;
+            }
+
+            // Se não achou nenhum token to elemento informado é inválido
+            if (content.Count < 1)
+            {
+                return null;
             }
 
             return new Token(content.ToArray())
