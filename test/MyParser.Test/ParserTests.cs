@@ -123,13 +123,6 @@ namespace MyParser.Test
         [Fact(DisplayName = "Desconsidera caracteres conforme IgnoreDelegate")]
         public void DesconsideraCaracteres_Conforme_IgnoreDelegate()
         {
-            bool ignore(char c) => new[] { ' ', '*', '-' }.Contains(c);
-
-            var ABRoot = new AndListGrammarElement(new[] {
-                new CharGrammarElement('A'),
-                new CharGrammarElement('B')
-            });
-
             /*
              * A IDEIA BASICA SOBRE IGNORAR:
              * -----------------------------
@@ -154,6 +147,13 @@ namespace MyParser.Test
              *   sentido aqui. Talvez um [WordGrammarElement] faça mais sentido.
              *   Se será uma palavra de um único caractere ele é que determina
              */
+
+            bool ignore(char c) => new[] { ' ', '*', '-' }.Contains(c);
+
+            var ABRoot = new AndListGrammarElement(new[] {
+                new CharGrammarElement('A'),
+                new CharGrammarElement('B')
+            });
 
             var grammar = new Grammar(ABRoot, ignore);
             var parser = new Parser(grammar);
