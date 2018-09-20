@@ -18,12 +18,12 @@ namespace MyParser2.Compiler
             string code,
             MyEmitterDelegate<T> compiler)
         {
-            var lexer = new MyLexer(grammar);
+            var scanner = new MyScanner(grammar);
             var parser = new MyParser(grammar);
             var codeStream = new CodeStringStream(code);
 
             // Executa a análise léxica
-            var tokens = lexer.Run(codeStream);
+            var tokens = scanner.Run(codeStream);
 
             // Executa a análise sintática
             var syntaxTree = parser.Run(tokens);

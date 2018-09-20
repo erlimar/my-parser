@@ -6,11 +6,11 @@ namespace MyParser2.Lexer
     /// <summary>
     /// Um exemplo de analisador léxico
     /// </summary>
-    public class MyLexer
+    public class MyScanner
     {
         private readonly MyGrammar _grammar;
 
-        public MyLexer(MyGrammar grammar)
+        public MyScanner(MyGrammar grammar)
         {
             _grammar = grammar
                 ?? throw new ArgumentNullException(nameof(grammar));
