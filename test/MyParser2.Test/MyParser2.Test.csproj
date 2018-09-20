@@ -17,10 +17,4 @@
     <ProjectReference Include="..\..\src\MyParser2\MyParser2.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Grammar\" />
-    <Folder Include="Lexer\" />
-    <Folder Include="Parser\" />
-  </ItemGroup>
-
 </Project>
