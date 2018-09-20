@@ -1,7 +1,6 @@
 ﻿using MyParser2.Grammar;
+using MyParser2.Grammar.CommonElements;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyParser2.Test.CalcTwoNumbers
 {
@@ -9,6 +8,14 @@ namespace MyParser2.Test.CalcTwoNumbers
     {
         public CalcTwoNumbersGrammar()
         {
+            RootElement = new NumberGrammarElement();
+            OnLexerDiscard = DoLexerDiscard;
         }
+
+        private bool DoLexerDiscard(Char element)
+        {
+            return false;
+        }
+
     }
 }

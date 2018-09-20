@@ -8,11 +8,14 @@ namespace MyParser2.Test
     [Trait("Target", nameof(MyCompiler<CalcTwoNumbersObject>))]
     public class CompilerTests
     {
-        [Fact]
-        public void __()
+        [Fact(DisplayName = "Resolve cenário básico")]
+        public void Resolve_Cenario_Basico()
         {
             var grammar = new CalcTwoNumbersGrammar();
-            var inputCode = "437 + 734";
+            var inputCode = @"
+                            437
+\t\t                         + 
+                            734   ";
 
             var compiler = new MyCompiler<CalcTwoNumbersObject>(
                 grammar,

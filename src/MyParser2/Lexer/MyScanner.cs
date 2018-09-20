@@ -1,5 +1,6 @@
 ﻿using MyParser2.Grammar;
 using System;
+using System.Linq;
 
 namespace MyParser2.Lexer
 {
@@ -22,9 +23,55 @@ namespace MyParser2.Lexer
         /// <param name="input">Sequência de caracteres de entrada</param>
         /// <returns>Sequência de tokens</returns>
         /// <exception cref="LexicalAnalysisException">Se houver algum erro durante a análise</exception>
+        /// <exception cref="TokenNotFoundException">Se nenhum token for encontrado</exception>
+        /// <exception cref="InputNotConsumedCompletelyException">Se a entrada não for completamente consumida</exception>
         public ObjectStream<MyToken> Run(ObjectStream<Char> input)
         {
-            throw new NotImplementedException();
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            MyScannerDiscardDelegate<Char> discarder = (c) => false;
+
+            if (_grammar.OnLexerDiscard != null)
+            {
+                discarder = _grammar.OnLexerDiscard;
+            }
+
+            try
+            {
+                MyToken[] acquiredTokens = _grammar.RootElement.Eval(input, discarder);
+
+                if (acquiredTokens == null || acquiredTokens.Count() < 1)
+                {
+                    // TODO: Informar [currentPos] ???
+                    throw new TokenNotFoundException();
+                }
+
+                // Ignorando qualquer código descartável que tenha restado
+                input.Discard(discarder);
+
+                if (!input.EndOfStream())
+                {
+                    // TODO: Informar [currentPos] ???
+                    throw new InputNotConsumedCompletelyException();
+                }
+
+                var output = new ObjectStream<MyToken>();
+
+                Array.ForEach(acquiredTokens, (token) => output.Push(token));
+
+                return output;
+            }
+            catch (LexicalAnalysisException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new LexicalAnalysisException(ex);
+            }
         }
     }
 }
