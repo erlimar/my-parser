@@ -20,10 +20,10 @@ namespace MyParser2.Compiler
         {
             var scanner = new MyScanner(grammar);
             var parser = new MyParser(grammar);
-            var codeStream = new CodeStringStream(code);
+            var input = new CodeStringStream(code);
 
             // Executa a análise léxica
-            var tokens = scanner.Run(codeStream);
+            var tokens = scanner.Run(input);
 
             // Executa a análise sintática
             var syntaxTree = parser.Run(tokens);
