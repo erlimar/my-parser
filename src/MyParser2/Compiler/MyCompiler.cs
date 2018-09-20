@@ -29,7 +29,9 @@ namespace MyParser2.Compiler
             var syntaxTree = parser.Run(tokens);
 
             // Emite (compila) o objeto compilado final
-            return compiler(syntaxTree);
+            var output = compiler(syntaxTree);
+
+            return output;
         }
     }
 }
