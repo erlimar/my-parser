@@ -8,7 +8,7 @@ namespace MyParser2.Compiler
     public class MyCompiler<T>
     {
         private readonly MyGrammar _grammar;
-        private readonly MyEmitterDelegate<T> _compiler;
+        private readonly MyEmitterDelegate<T> _emitter;
 
         /// <summary>
         /// 
@@ -19,7 +19,7 @@ namespace MyParser2.Compiler
         {
             _grammar = grammar
                 ?? throw new ArgumentNullException(nameof(grammar));
-            _compiler = emitter
+            _emitter = emitter
                 ?? throw new ArgumentNullException(nameof(emitter));
         }
 
@@ -41,7 +41,7 @@ namespace MyParser2.Compiler
             var syntaxTree = parser.Run(tokens);
 
             // Emite (compila) o objeto compilado final
-            var output = _compiler(syntaxTree);
+            var output = _emitter(syntaxTree);
 
             return output;
         }
