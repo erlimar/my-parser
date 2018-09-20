@@ -4,6 +4,7 @@ using Xunit;
 
 namespace MyParser.Test
 {
+    [Trait("Module", nameof(MyParser))]
     [Trait("Target", nameof(AndListGrammarElement))]
     public class AndListGrammarElementTests
     {

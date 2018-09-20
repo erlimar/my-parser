@@ -3,6 +3,7 @@ using Xunit;
 
 namespace MyParser.Test
 {
+    [Trait("Module", nameof(MyParser))]
     [Trait("Target", nameof(SyntaxTreeNode))]
     public class TokenTreeNodeTests
     {

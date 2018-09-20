@@ -7,6 +7,7 @@ using MyParser.CommonElements;
 
 namespace MyParser.Test
 {
+    [Trait("Module", nameof(MyParser))]
     [Trait("Target", nameof(Parser))]
     public class ParserTests
     {
