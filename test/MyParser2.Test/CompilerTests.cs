@@ -14,7 +14,7 @@ namespace MyParser2.Test
             var grammar = new CalcTwoNumbersGrammar();
             var inputCode = @"
                             437
-\t\t                         + 
+                             + 
                             734   ";
 
             var compiler = new MyCompiler<CalcTwoNumbersObject>(

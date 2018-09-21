@@ -7,6 +7,11 @@ namespace MyParser2.Grammar
     {
         public abstract MyToken[] Eval(ObjectStream<Char> input, MyScannerDiscardDelegate<Char> discarder);
 
+        public virtual object MakeTokenClass()
+        {
+            throw new NotImplementedException();
+        }
+
         protected void Ensure(ObjectStream<char> input, MyScannerDiscardDelegate<char> discarder)
         {
             if (input == null)

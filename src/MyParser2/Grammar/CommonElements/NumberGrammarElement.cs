@@ -47,6 +47,7 @@ namespace MyParser2.Grammar.CommonElements
             }
 
             var token = new MyToken(
+                MakeTokenClass(),
                 initialPos,
                 input.GetPosition(),
                 new string(foundChars.ToArray())
