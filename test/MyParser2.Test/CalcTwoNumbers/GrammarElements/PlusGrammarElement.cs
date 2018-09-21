@@ -2,9 +2,9 @@
 
 namespace MyParser2.Test.CalcTwoNumbers.GrammarElements
 {
-    public class PlusrGrammarElement : Grammar.CommonElements.CharacterGrammarElement
+    public class PlusGrammarElement : Grammar.CommonElements.CharacterGrammarElement
     {
-        public PlusrGrammarElement()
+        public PlusGrammarElement()
             : base('+')
         { }
 

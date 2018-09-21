@@ -15,7 +15,7 @@ namespace MyParser2.Test.CalcTwoNumbers.GrammarElements
                 return new MyGrammarElement[]
                 {
                     new NumberGrammarElement(),
-                    new PlusrGrammarElement(),
+                    new PlusGrammarElement(),
                     new NumberGrammarElement()
                 };
             }
