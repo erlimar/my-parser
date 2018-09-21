@@ -5,7 +5,11 @@ namespace MyParser2.Parser
     public class SyntaxAnalysisException : Exception
     {
         public SyntaxAnalysisException()
-            : this(null)
+            : this((Exception)null)
+        { }
+
+        public SyntaxAnalysisException(string message)
+            : this(message, null)
         { }
 
         public SyntaxAnalysisException(Exception innerException)

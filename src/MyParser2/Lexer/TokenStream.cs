@@ -41,7 +41,7 @@ namespace MyParser2.Lexer
                 return null;
             }
 
-            return _stream.ElementAt((int)++_currentPos);
+            return _stream.ElementAt((int)_currentPos++);
         }
 
         public override void Push(MyToken element)

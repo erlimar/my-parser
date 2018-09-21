@@ -14,7 +14,7 @@ namespace MyParser2.Grammar
             throw new NotImplementedException();
         }
 
-        protected void Ensure(ObjectStream<char> input, MyDiscardDelegate<char> discarder)
+        protected void Ensure<T>(ObjectStream<T> input, MyDiscardDelegate<T> discarder)
         {
             if (input == null)
             {
