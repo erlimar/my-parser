@@ -2,7 +2,7 @@
 {
     public class NumberGrammarElement : Grammar.CommonElements.NumberGrammarElement
     {
-        public override object MakeTokenClass()
+        public override object GetTokenClass()
         {
             return CalcTwoNumbersTokenClass.NUM;
         }

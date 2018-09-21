@@ -21,7 +21,7 @@ namespace MyParser2.Test.CalcTwoNumbers.GrammarElements
             }
         }
 
-        public override object MakeTokenClass()
+        public override object GetTokenClass()
         {
             return CalcTwoNumbersTokenClass.SUM_EXPRESSION;
         }

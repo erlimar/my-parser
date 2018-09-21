@@ -8,7 +8,7 @@ namespace MyParser2
     /// </summary>
     public class ObjectStream<T>
     {
-        public void Discard(MyScannerDiscardDelegate<T> ignore)
+        public void Discard(MyDiscardDelegate<T> ignore)
         {
             if (ignore == null) return;
 

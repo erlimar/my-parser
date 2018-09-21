@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using MyParser2.Lexer;
+using MyParser2.Parser;
 
 namespace MyParser2.Grammar.CommonElements
 {
@@ -15,7 +16,7 @@ namespace MyParser2.Grammar.CommonElements
                 ?? throw new ArgumentNullException(nameof(elements));
         }
 
-        public override MyToken[] Eval(ObjectStream<Char> input, MyScannerDiscardDelegate<char> discarder)
+        public override MyToken[] Eval(ObjectStream<Char> input, MyDiscardDelegate<char> discarder)
         {
             Ensure(input, discarder);
 
@@ -51,7 +52,7 @@ namespace MyParser2.Grammar.CommonElements
             }
 
             var token = new MyToken(
-                MakeTokenClass(),
+                GetTokenClass(),
                 initialPos,
                 input.GetPosition(),
                 null
@@ -60,6 +61,11 @@ namespace MyParser2.Grammar.CommonElements
             var firstToken = new MyToken[] { token };
 
             return firstToken.Concat(foundTokens).ToArray();
+        }
+
+        public override SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder)
+        {
+            throw new NotImplementedException();
         }
     }
 }

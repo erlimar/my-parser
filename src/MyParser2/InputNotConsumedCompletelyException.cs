@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace MyParser2.Lexer
+namespace MyParser2
 {
     public class InputNotConsumedCompletelyException
-        : LexicalAnalysisException
-    {
-    }
+        : Exception
+    { }
 }

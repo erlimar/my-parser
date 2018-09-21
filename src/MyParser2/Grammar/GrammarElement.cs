@@ -1,18 +1,20 @@
 ﻿using MyParser2.Lexer;
+using MyParser2.Parser;
 using System;
 
 namespace MyParser2.Grammar
 {
     public abstract class MyGrammarElement
     {
-        public abstract MyToken[] Eval(ObjectStream<Char> input, MyScannerDiscardDelegate<Char> discarder);
+        public abstract MyToken[] Eval(ObjectStream<Char> input, MyDiscardDelegate<Char> discarder);
+        public abstract SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder);
 
-        public virtual object MakeTokenClass()
+        public virtual object GetTokenClass()
         {
             throw new NotImplementedException();
         }
 
-        protected void Ensure(ObjectStream<char> input, MyScannerDiscardDelegate<char> discarder)
+        protected void Ensure(ObjectStream<char> input, MyDiscardDelegate<char> discarder)
         {
             if (input == null)
             {

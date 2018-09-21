@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyParser2.Parser
+﻿namespace MyParser2.Parser
 {
     public class MyAbstractSyntaxTree
     {
+        public MyAbstractSyntaxTree(SyntaxTreeNode rootNode)
+        {
+            RootNode = rootNode;
+        }
+
+        public SyntaxTreeNode RootNode { get; private set; }
     }
 }

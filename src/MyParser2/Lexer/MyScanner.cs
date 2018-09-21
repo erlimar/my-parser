@@ -32,7 +32,7 @@ namespace MyParser2.Lexer
                 throw new ArgumentNullException(nameof(input));
             }
 
-            MyScannerDiscardDelegate<Char> discarder = (c) => false;
+            MyDiscardDelegate<Char> discarder = (c) => false;
 
             if (_grammar.OnLexerDiscard != null)
             {
