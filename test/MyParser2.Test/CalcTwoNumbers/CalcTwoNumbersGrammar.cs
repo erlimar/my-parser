@@ -8,7 +8,7 @@ namespace MyParser2.Test.CalcTwoNumbers
     {
         public CalcTwoNumbersGrammar()
         {
-            RootElement = new GrammarElements.NumberGrammarElement();
+            RootElement = new GrammarElements.SumExpressionGrammarElement();
             OnLexerDiscard = DoLexerDiscard;
         }
 

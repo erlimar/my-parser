@@ -2,6 +2,7 @@
 {
     public enum CalcTwoNumbersTokenClass
     {
+        SUM_EXPRESSION,
         NUM,
         PLUS
     }
