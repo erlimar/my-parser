@@ -82,8 +82,8 @@ public class SumExpressionGrammarElement : Grammar.CommonElements.GroupAndGramma
 
     public override SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder)
     {
-	    /* Código de construção do nó sintático */
-	}
+        /* Código de construção do nó sintático */
+    }
 }
 
 public class NumberGrammarElement : Grammar.CommonElements.NumberGrammarElement
