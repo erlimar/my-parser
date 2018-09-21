@@ -3,6 +3,7 @@ Parser de qualquer coisa
 
 ![](lexer-parser-sample.png)
 -----------------------------------------------------------------
+Exemplo de uso
 ```csharp
 class CalcSample
 {
@@ -23,6 +24,31 @@ class CalcSample
         var result = calc.CalcNumbers();
 
         Assert.Equal(1171, result);
+    }
+}
+```
+
+Definição da gramática:
+```csharp
+public class CalcTwoNumbersGrammar : MyGrammar
+{
+    public CalcTwoNumbersGrammar()
+    {
+        RootElement = new GrammarElements.SumExpressionGrammarElement();
+        OnLexerDiscard = DoLexerDiscard;
+    }
+
+    private bool DoLexerDiscard(Char element)
+    {
+        var ignorableChars = new char[]
+        {
+            '\n',
+            '\r',
+            '\t',
+            ' '
+        };
+
+        return ignorableChars.Contains(element);
     }
 }
 ```
