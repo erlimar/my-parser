@@ -58,7 +58,7 @@ namespace MyParser2.Lexer
                     throw new InputNotConsumedCompletelyException();
                 }
 
-                var output = new ObjectStream<MyToken>();
+                var output = new TokenStream();
 
                 Array.ForEach(acquiredTokens, (token) => output.Push(token));
 
