@@ -25,7 +25,7 @@ namespace MyParser2.Test
             var calc = compiler.Compile(inputCode);
             var result = calc.CalcNumbers();
 
-            Assert.Equal(1171, result);
+            Assert.Equal((uint)1171, result);
         }
     }
 }
