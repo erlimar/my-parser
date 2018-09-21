@@ -43,10 +43,7 @@ namespace MyParser2.Grammar.CommonElements
                 character
             );
 
-            return new MyToken[]
-            {
-                token
-            };
+            return new MyToken[] { token };
         }
     }
 }

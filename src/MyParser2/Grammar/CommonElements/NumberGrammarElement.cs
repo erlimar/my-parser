@@ -7,6 +7,8 @@ namespace MyParser2.Grammar.CommonElements
 {
     public class NumberGrammarElement : MyGrammarElement
     {
+        private static char[] _validChars = "0123456789".ToCharArray();
+
         public override MyToken[] Eval(ObjectStream<Char> input, MyScannerDiscardDelegate<char> discarder)
         {
             Ensure(input, discarder);
@@ -14,15 +16,7 @@ namespace MyParser2.Grammar.CommonElements
             // Ignora código descartável inicialmente
             input.Discard(discarder);
 
-            // Salva a posição inicial no stream de entrada
-            // OBS: Aqui salvamos só após ignorar os caracteres
-            //      descartáveis, porque o descarte é global para
-            //      o processo. Então a posição inicial é justamente
-            //      no primeiro caractere não descartável
             var initialPos = input.GetPosition();
-
-            var validChars = "0123456789".ToCharArray();
-
             var foundChars = new List<Char>();
 
             while (!input.EndOfStream())
@@ -30,7 +24,7 @@ namespace MyParser2.Grammar.CommonElements
                 var pos = input.GetPosition();
                 char c = input.Next();
 
-                if (!validChars.Contains(c))
+                if (!_validChars.Contains(c))
                 {
                     input.SetPosition(pos);
                     break;
@@ -53,10 +47,7 @@ namespace MyParser2.Grammar.CommonElements
                 new string(foundChars.ToArray())
             );
 
-            return new MyToken[]
-            {
-                token
-            };
+            return new MyToken[] { token };
         }
     }
 }

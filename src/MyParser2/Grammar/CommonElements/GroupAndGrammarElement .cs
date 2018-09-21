@@ -54,13 +54,12 @@ namespace MyParser2.Grammar.CommonElements
                 MakeTokenClass(),
                 initialPos,
                 input.GetPosition(),
-                foundTokens.ToArray()
+                null
             );
 
-            return new MyToken[]
-            {
-                token
-            };
+            var firstToken = new MyToken[] { token };
+
+            return firstToken.Concat(foundTokens).ToArray();
         }
     }
 }
