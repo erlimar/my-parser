@@ -10,10 +10,7 @@ class CalcSample
     void Main()
     {
         var grammar = new CalcTwoNumbersGrammar();
-        var inputCode = @"
-                       437
-                        + 
-                       734   ";
+        var inputCode = "437 + 734";
 
         var compiler = new MyCompiler<CalcTwoNumbersObject>(
             grammar,
