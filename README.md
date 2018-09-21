@@ -80,7 +80,7 @@ public class SumExpressionGrammarElement : Grammar.CommonElements.GroupAndGramma
         return CalcTwoNumbersTokenClass.SUM_EXPRESSION;
     }
 
-	public override SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder)
+    public override SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder)
     {
 	    /* Código de construção do nó sintático */
 	}
