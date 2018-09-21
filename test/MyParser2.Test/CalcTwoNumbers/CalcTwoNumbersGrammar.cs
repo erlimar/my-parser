@@ -24,6 +24,5 @@ namespace MyParser2.Test.CalcTwoNumbers
 
             return ignorableChars.Contains(element);
         }
-
     }
 }
