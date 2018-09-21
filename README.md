@@ -62,8 +62,7 @@ public enum CalcTwoNumbersTokenClass
 
 Elementos gramaticais:
 ```csharp
-public class SumExpressionGrammarElement
-    : Grammar.CommonElements.GroupAndGrammarElement
+public class SumExpressionGrammarElement : Grammar.CommonElements.GroupAndGrammarElement
 {
     private static MyGrammarElement[] ExpressionElements = new MyGrammarElement[]
     {
@@ -80,10 +79,14 @@ public class SumExpressionGrammarElement
     {
         return CalcTwoNumbersTokenClass.SUM_EXPRESSION;
     }
+
+	public override SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder)
+    {
+	    /* Código de construção do nó sintático */
+	}
 }
 
-public class NumberGrammarElement
-    : Grammar.CommonElements.NumberGrammarElement
+public class NumberGrammarElement : Grammar.CommonElements.NumberGrammarElement
 {
     public override object GetTokenClass()
     {
@@ -91,8 +94,7 @@ public class NumberGrammarElement
     }
 }
 
-public class PlusGrammarElement
-    : Grammar.CommonElements.CharacterGrammarElement
+public class PlusGrammarElement : Grammar.CommonElements.CharacterGrammarElement
 {
     public PlusGrammarElement()
         : base('+')
