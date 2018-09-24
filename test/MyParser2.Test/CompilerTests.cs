@@ -27,5 +27,37 @@ namespace MyParser2.Test
 
             Assert.Equal((uint)1171, result);
         }
+
+        [Fact(DisplayName = "Resolve cenário menos básico")]
+        public void Resolve_Cenario_MenosBasico()
+        {
+            var grammar = new JavaScriptHalfGrammar();
+            var inputCode = @"
+                // VAR_DEFINITION
+                var varName;
+
+                // VAR ASSIGNMENT
+                varName = 0;
+
+                // VAR_DEFINITION_AND_ASSIGNMENT
+                var varName = 0;
+
+                // FUNCTION_DEFINITION
+                function funcName() {
+                };
+
+                // FUNCTION_CALL
+                funcName();
+            ";
+
+            var compiler = new MyCompiler<JavaScriptHalfGrammar>(
+                grammar,
+                JavaScriptHalfGrammar.Emitter
+            );
+
+            var js = compiler.Compile(inputCode);
+
+            Assert.NotNull(js);
+        }
     }
 }
