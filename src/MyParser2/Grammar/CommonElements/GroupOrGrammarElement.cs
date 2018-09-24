@@ -6,11 +6,11 @@ using MyParser2.Parser;
 
 namespace MyParser2.Grammar.CommonElements
 {
-    public class GroupAndGrammarElement : MyGrammarElement
+    public class GroupOrGrammarElement : MyGrammarElement
     {
         private readonly MyGrammarElement[] _elements;
 
-        public GroupAndGrammarElement(MyGrammarElement[] elements)
+        public GroupOrGrammarElement(MyGrammarElement[] elements)
         {
             _elements = elements
                 ?? throw new ArgumentNullException(nameof(elements));
@@ -35,13 +35,12 @@ namespace MyParser2.Grammar.CommonElements
             {
                 var elementTokens = element.Eval(input, discarder);
 
-                // Qualquer elemento do grupo falhando, todo o grupo falha
-                if (elementTokens == null)
+                // O primeiro elemento que obter sucesso, esse é o aceito
+                if (elementTokens != null)
                 {
-                    return null;
+                    foundTokens.AddRange(elementTokens);
+                    break;
                 }
-
-                foundTokens.AddRange(elementTokens);
             }
 
             if (!foundTokens.Any())
@@ -51,19 +50,7 @@ namespace MyParser2.Grammar.CommonElements
                 return null;
             }
 
-            // O próprio elemento de grupo torna-se um token.
-            // Isso é util para ser usado como um demarcador
-            var token = new MyToken(
-                GetTokenClass(),
-                initialPos,
-                input.GetPosition(),
-                null
-            );
-
-            var firstToken = new MyToken[] { token };
-
-            // Os demais tokens seguem o demarcador
-            return firstToken.Concat(foundTokens).ToArray();
+            return foundTokens.ToArray();
         }
 
         public override SyntaxTreeNode Make(ObjectStream<MyToken> input, MyDiscardDelegate<MyToken> discarder)
