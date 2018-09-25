@@ -1,5 +1,6 @@
 ﻿using MyParser2.Compiler;
 using MyParser2.Test.CalcTwoNumbers;
+using MyParser2.Test.JavaScriptHalf;
 using Xunit;
 
 namespace MyParser2.Test
@@ -44,15 +45,15 @@ namespace MyParser2.Test
 
                 // FUNCTION_DEFINITION
                 function funcName() {
-                };
+                }
 
                 // FUNCTION_CALL
                 funcName();
             ";
 
-            var compiler = new MyCompiler<JavaScriptHalfGrammar>(
+            var compiler = new MyCompiler<JavaScriptHalfObject>(
                 grammar,
-                JavaScriptHalfGrammar.Emitter
+                JavaScriptHalfObject.Emitter
             );
 
             var js = compiler.Compile(inputCode);
